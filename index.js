@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import ChatBot from "./app.js";
+const express = require("express");
+const cors = require("cors");
+const ChatBot = require("./app.js");
 
 const app = express();
 app.use(cors());
@@ -28,4 +28,4 @@ app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
 
-export default app;
+module.exports = app;

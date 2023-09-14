@@ -3,7 +3,7 @@ const readlineSync = require("readline-sync");
 const colors = require("colors");
 const bodyParser = require("body-parser");
 
-export default function ChatBot(app) {
+function ChatBot(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -47,3 +47,5 @@ export default function ChatBot(app) {
         }
     });
 }
+
+module.exports = ChatBot;
