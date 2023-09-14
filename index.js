@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+
 const ChatBot = require("./app.js");
 
 const app = express();
 app.use(cors());
 
-const hostname = "0.0.0.0";
 const port = 3300;
 
 function errorHandler(err, req, res, next) {
