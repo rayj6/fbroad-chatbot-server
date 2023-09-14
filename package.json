@@ -1,4 +1,5 @@
 {
+    "homepage": "https://rayj6.github.io/fbroad-chatbot-server",
     "name": "chatbot",
     "version": "1.0.0",
     "description": "Chatbot powered by ChatGPT",
