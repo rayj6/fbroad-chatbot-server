@@ -1,7 +1,7 @@
-import openai from "./config/open-ai.js";
-import readlineSync from "readline-sync";
-import colors from "colors";
-import bodyParser from "body-parser";
+const openai = require("./config/open-ai.js");
+const readlineSync = require("readline-sync");
+const colors = require("colors");
+const bodyParser = require("body-parser");
 
 export default function ChatBot(app) {
     app.use(bodyParser.json());
