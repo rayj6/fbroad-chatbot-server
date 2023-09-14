@@ -1,49 +1,30 @@
-import openai from "./config/open-ai.js";
-import readlineSync from "readline-sync";
-import colors from "colors";
-import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
+import ChatBot from "./index.js";
 
-export default function ChatBot(app) {
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+const app = express();
+app.use(cors());
 
-    // Create a route to receive data and insert it into the database
-    app.post("/chatbot", async (req, res) => {
-        const { question } = req.body;
-        let userInput = question;
-        const chatHistory = [];
-        try {
-            // Construct messages by iterating over the history
-            const messages = chatHistory.map(([role, content]) => ({
-                role,
-                content,
-            }));
+const hostname = "0.0.0.0";
+const port = 3300;
 
-            // Add latest user input
-            messages.push({ role: "user", content: userInput });
+function errorHandler(err, req, res, next) {
+    res.status(500);
 
-            // Call the API with user input & history
-            const completion = await openai.createChatCompletion({
-                model: "gpt-3.5-turbo",
-                messages: messages,
-            });
+    console.log(err);
 
-            // Get completion text/content
-            const completionText = completion.data.choices[0].message.content;
-
-            if (userInput.toLowerCase() === "exit") {
-                console.log(colors.green("Bot: ") + completionText);
-                return;
-            }
-
-            console.log(colors.green("Bot: ") + completionText);
-            res.send(completionText);
-
-            // Update history with user input and assistant response
-            chatHistory.push(["user", userInput]);
-            chatHistory.push(["assistant", completionText]);
-        } catch (error) {
-            console.error(colors.red(error));
-        }
-    });
+    res.json({ error: err.message });
 }
+
+app.use(express.static("public"));
+
+ChatBot(app);
+
+app.use(errorHandler);
+
+// Start the server
+app.listen(port, () => {
+    console.clear();
+    console.log(`Server is running on port: ${port}`);
+    console.log(`Follow this link to access server: http://${hostname}:${port}`);
+});
