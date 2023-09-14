@@ -26,5 +26,6 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.clear();
     console.log(`Server is running on port: ${port}`);
-    console.log(`Follow this link to access server: http://${hostname}:${port}`);
 });
+
+module.exports = app;
