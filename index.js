@@ -16,6 +16,8 @@ function errorHandler(err, req, res, next) {
     res.json({ error: err.message });
 }
 
+app.use(express.static("public"));
+
 ChatBot(app);
 
 app.use(errorHandler);
